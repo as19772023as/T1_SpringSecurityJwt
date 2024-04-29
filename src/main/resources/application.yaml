@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: metrics-consumer
+  jpa:
+    hibernate:
+#    ddl-auto: none
+    ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  datasource:
+    username: mrx
+    password: 123
+    url: jdbc:postgresql://localhost:5432/mrx_db
+    driver-class-name: org.postgresql.Driver
+
+#  liquibase:
+#    enabled: true
+#    change-log: classpath:db.changelog/db.changelog-master.yaml
+#    default-schema: t1_ss_jwt
+
+server:
+  port: 8082
+
+jwt:
+    key: 53A73E5F1C4E0A2D3B5F2D784E6A1B423D6F247D1F6E5C3A596D635A75327855
+    tokenExpiration: 1m
+    refreshExpirationMs: 10m
+

@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: 'mrx_db'
+      POSTGRES_USER: 'mrx'
+      POSTGRES_PASSWORD: '123'
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
