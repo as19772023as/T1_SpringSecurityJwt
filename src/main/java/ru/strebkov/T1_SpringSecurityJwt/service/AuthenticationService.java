@@ -20,8 +20,6 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
-    //TODO ++++++++++++++++++++++++++++++++++++++++
-    private  final RefreshTokenService refreshTokenService;
 
     /**
      * Регистрация пользователя

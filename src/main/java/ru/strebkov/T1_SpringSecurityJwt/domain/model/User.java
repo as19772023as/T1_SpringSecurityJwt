@@ -20,7 +20,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(schema = "t1_jwt", name = "users")
+@Table(schema = "t1_ss_jwt", name = "users")
 public class User implements UserDetails {
     @Id
     @Column(name = "id")
@@ -39,10 +39,6 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private Role role;
-
-    @Embedded
-    @Column(name = "refresh_token", nullable = false)
-    private RefreshToken refreshToken;
 
 
     @Override

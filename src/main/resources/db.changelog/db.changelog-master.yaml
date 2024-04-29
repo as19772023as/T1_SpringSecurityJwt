@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - include:
+      file: migrations/schema_v1_table_person.sql
+      relativeToChangeLogFile: true
+  - include:
+      file: migrations/schema_v2_person.sql
+      relativeToChangeLogFile: true
+  - include:
+      file: migrations/schema_v3_table_user.sql
+      relativeToChangeLogFile: true
