@@ -25,11 +25,12 @@ public class JwtService { // JwtService генерирует токен, кот�
     @Value("${jwt.tokenExpiration}")
     private Duration tokenExpiration;
 
+    //Извлечение имени пользователя из токена
     public String extractUserName(String token) {
-
         return extractClaim(token, Claims::getSubject);
     }
 
+    //Генерация токена
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         if (userDetails instanceof User customUserDetails) {
@@ -38,6 +39,13 @@ public class JwtService { // JwtService генерирует токен, кот�
             claims.put("role", customUserDetails.getRole());
         }
         return generateToken(claims, userDetails);
+    }
+
+    private String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+        return Jwts.builder().setClaims(extraClaims).setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + tokenExpiration.toMillis()))
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
@@ -58,12 +66,7 @@ public class JwtService { // JwtService генерирует токен, кот�
         return claimsResolvers.apply(claims);
     }
 
-    private String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
-        return Jwts.builder().setClaims(extraClaims).setSubject(userDetails.getUsername())
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + tokenExpiration.toMillis()))
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
-    }
+
 
     /**
      * Проверка токена на просроченность

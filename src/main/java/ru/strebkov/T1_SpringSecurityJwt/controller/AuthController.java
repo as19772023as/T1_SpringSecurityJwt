@@ -17,7 +17,7 @@ import ru.strebkov.T1_SpringSecurityJwt.service.AuthenticationService;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-@Tag(name = "Аутентификация")
+@Tag(name = "Аутентификация и Авторизация")
 public class AuthController {
     private final AuthenticationService authenticationService;
 

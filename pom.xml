@@ -42,15 +42,6 @@
 			<artifactId>swagger-annotations</artifactId>
 			<version>2.0.0-rc2</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui -->
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-			<version>2.5.0</version>
-		</dependency>
-
-
-
 
 		<!-- База данных -->
 		<dependency>
@@ -67,6 +58,11 @@
 			<artifactId>liquibase-core</artifactId>
 			<version>4.26.0</version>
 		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.c4-soft.springaddons</groupId>-->
+<!--			<artifactId>spring-addons-oauth2</artifactId>-->
+<!--			<version>7.6.13</version>-->
+<!--		</dependency>-->
 
 		<!-- Безопасность -->
 		<dependency>
@@ -103,7 +99,88 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+
+
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+			<version>3.2.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.c4-soft.springaddons</groupId>
+			<artifactId>spring-addons-oauth2-test</artifactId>
+			<version>6.1.0</version>
+		</dependency>
+
+
+
+
+		<!-- https://mvnrepository.com/artifact/com.c4-soft.springaddons/spring-security-oauth2-test-addons -->
+<!--		<dependency>-->
+<!--			<groupId>com.c4-soft.springaddons</groupId>-->
+<!--			<artifactId>spring-security-oauth2-test-addons</artifactId>-->
+<!--			<version>4.5.1</version>-->
+<!--		</dependency>-->
+
+
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.security</groupId>-->
+<!--			<artifactId>spring-security-oauth2-client</artifactId>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.security</groupId>-->
+<!--			<artifactId>spring-security-oauth2-resource-server</artifactId>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>com.c4-soft.springaddons</groupId>-->
+<!--			<artifactId>spring-addons-oauth2</artifactId>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-test-autoconfigure</artifactId>-->
+<!--		</dependency>-->
+
+<!--		<dependency>-->
+<!--			<groupId>com.jayway.jsonpath</groupId>-->
+<!--			<artifactId>json-path</artifactId>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.mockito</groupId>-->
+<!--			<artifactId>mockito-core</artifactId>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.apache.tomcat.embed</groupId>-->
+<!--			<artifactId>tomcat-embed-core</artifactId>-->
+<!--		</dependency>-->
+
+<!--		<dependency>-->
+<!--			<groupId>junit</groupId>-->
+<!--			<artifactId>junit</artifactId>-->
+<!--			<scope>test</scope>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.assertj</groupId>-->
+<!--			<artifactId>assertj-core</artifactId>-->
+<!--			<scope>test</scope>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.security</groupId>-->
+<!--			<artifactId>spring-security-config</artifactId>-->
+<!--			<scope>test</scope>-->
+<!--		</dependency>-->
+
+
+
+
 	</dependencies>
+
 
 	<build>
 		<plugins>
