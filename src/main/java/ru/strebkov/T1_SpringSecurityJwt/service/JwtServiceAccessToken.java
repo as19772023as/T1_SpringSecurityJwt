@@ -17,20 +17,33 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * JwtServiceAccessToken генерирует токен, который возвращается клиенту
+ */
 @Service
-public class JwtService { // JwtService генерирует токен, который возвращается клиенту
+public class JwtServiceAccessToken {
     @Value("${jwt.key}")
-    private String jwtSigningKey;
-
-    @Value("${jwt.tokenExpiration}")
+    private String jwtSigningKeyAccess;
+    @Value("${jwt.tokenExpirationMs}")
     private Duration tokenExpiration;
 
-    //Извлечение имени пользователя из токена
+
+    /**
+     * Извлечение имени пользователя из токена
+     *
+     * @param token токен
+     * @return имя пользователя
+     */
     public String extractUserName(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
-    //Генерация токена
+    /**
+     * Генерация токена
+     *
+     * @param userDetails данные пользователя
+     * @return токен
+     */
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         if (userDetails instanceof User customUserDetails) {
@@ -41,6 +54,13 @@ public class JwtService { // JwtService генерирует токен, кот�
         return generateToken(claims, userDetails);
     }
 
+    /**
+     * Генерация токена
+     *
+     * @param extraClaims дополнительные данные
+     * @param userDetails данные пользователя
+     * @return токен
+     */
     private String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
         return Jwts.builder().setClaims(extraClaims).setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
@@ -48,6 +68,13 @@ public class JwtService { // JwtService генерирует токен, кот�
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
     }
 
+    /**
+     * Проверка токена на валидность
+     *
+     * @param token       токен
+     * @param userDetails данные пользователя
+     * @return true, если токен валиден
+     */
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String userName = extractUserName(token);
         return (userName.equals(userDetails.getUsername())) && !isTokenExpired(token);
@@ -105,7 +132,7 @@ public class JwtService { // JwtService генерирует токен, кот�
      * @return ключ
      */
     private Key getSigningKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(jwtSigningKey);
+        byte[] keyBytes = Decoders.BASE64.decode(jwtSigningKeyAccess);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }

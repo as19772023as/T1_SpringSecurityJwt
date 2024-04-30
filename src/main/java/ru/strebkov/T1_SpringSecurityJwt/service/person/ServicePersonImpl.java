@@ -4,14 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.strebkov.T1_SpringSecurityJwt.domain.model.person.Person;
-import ru.strebkov.T1_SpringSecurityJwt.exception.NoSuchTasksEndpointException;
+import ru.strebkov.T1_SpringSecurityJwt.exception.NoSuchPersonEndpointException;
 import ru.strebkov.T1_SpringSecurityJwt.repository.repository.PersonRepository;
 
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +27,7 @@ public class ServicePersonImpl implements ServicePerson{
     @Transactional
     public Optional<Person> getPersonById(Long id) {
         return Optional.ofNullable(repository.findById(id)
-                .orElseThrow(() -> new NoSuchTasksEndpointException("Такой задачи нет")));
+                .orElseThrow(() -> new NoSuchPersonEndpointException("Такого пользователя в базе нет")));
     }
 
     @Override

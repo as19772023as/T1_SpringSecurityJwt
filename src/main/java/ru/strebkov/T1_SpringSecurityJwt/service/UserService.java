@@ -16,13 +16,22 @@ import ru.strebkov.T1_SpringSecurityJwt.repository.UserRepository;
 public class UserService {
     private final UserRepository repository;
 
-    // Сохранение пользователя
+    /**
+     * Сохранение пользователя
+     *
+     * @param user
+     * @return
+     */
     public User save(User user) {
         return repository.save(user);
     }
 
-
-   // Создание пользователя
+    /**
+     * Создание пользователя
+     *
+     * @param user
+     * @return
+     */
     public User create(User user) {
         if (repository.existsByUsername(user.getUsername())) {
             // Заменить на свои исключения
@@ -40,8 +49,11 @@ public class UserService {
                 .orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден"));
     }
 
-     //Получение пользователя по имени пользователя
-     // Нужен для Spring Security
+    /**
+     * Получение пользователя по имени пользователя (для Spring Security)
+     *
+     * @return
+     */
     public UserDetailsService userDetailsService() {
         return this::getByUsername;
     }
@@ -59,7 +71,11 @@ public class UserService {
         save(user);
     }
 
-   // Получение текущего пользователя
+    /**
+     * Получение текущего пользователя
+     *
+     * @return
+     */
     public User getCurrentUser() {
         // Получение имени пользователя из контекста Spring Security
         var username = SecurityContextHolder.getContext().getAuthentication().getName();

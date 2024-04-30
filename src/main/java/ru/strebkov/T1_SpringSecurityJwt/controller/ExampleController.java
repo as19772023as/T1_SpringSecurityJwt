@@ -30,5 +30,4 @@ public class ExampleController {
         return "Hello, admin!";
     }
 
-
 }

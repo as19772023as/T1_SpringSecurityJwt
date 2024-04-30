@@ -8,7 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
-import ru.strebkov.T1_SpringSecurityJwt.service.JwtService;
+import ru.strebkov.T1_SpringSecurityJwt.service.JwtServiceAccessToken;
 import ru.strebkov.T1_SpringSecurityJwt.service.UserService;
 import ru.strebkov.T1_SpringSecurityJwt.service.person.ServicePerson;
 
@@ -23,7 +23,7 @@ class ControllerPersonTest {
     @MockBean
     ServicePerson servicePerson;
     @MockBean
-    JwtService jwtService;
+    JwtServiceAccessToken jwtServiceAccessToken;
 
     @MockBean
     UserService userService;

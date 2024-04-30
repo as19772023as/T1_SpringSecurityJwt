@@ -1,8 +1,6 @@
 package ru.strebkov.T1_SpringSecurityJwt.service.person;
 
-import org.springframework.stereotype.Service;
 import ru.strebkov.T1_SpringSecurityJwt.domain.model.person.Person;
-
 
 import java.util.List;
 import java.util.Optional;

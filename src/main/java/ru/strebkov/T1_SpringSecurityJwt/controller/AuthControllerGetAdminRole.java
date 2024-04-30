@@ -16,7 +16,6 @@ public class AuthControllerGetAdminRole {
 
     private final UserService service;
 
-
     @GetMapping("/get-admin")
     @Operation(summary = "Получить роль ADMIN (для демонстрации)")
     public void getAdmin() {
