@@ -1,63 +1,95 @@
 package ru.strebkov.T1_SpringSecurityJwt.service;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.strebkov.T1_SpringSecurityJwt.domain.model.Role;
 import ru.strebkov.T1_SpringSecurityJwt.domain.model.User;
 import ru.strebkov.T1_SpringSecurityJwt.repository.UserRepository;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.security.config.http.MatcherType.mvc;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-//@SpringBootTest
 
-//@RunWith(SpringRunner.class)
-//@SpringBootTest
-        //@AutoConfigureMockMvc
+@SpringBootTest
 @DisplayName("Тест компонента Service")
 class UserServiceTest {
-   // @MockBean
-    UserRepository userRepository;
-   // @MockBean
-    UserService userService;
+    @Autowired
+    UserRepository repository;
+    private UserService userService;
+    private User user;
+    private static final String username = "AAnnddrreeyy";
+    private static final String email = "test@test.ru";
+    private static final String password = "123456";
+    private static final Role role = Role.ROLE_USER;
 
-   // @Autowired
-    private MockMvc mvc;
 
-//    @Test
-//    void createTest() {
-//        User user = User.builder()
-//                .id(1L)
-//                .username("Andrey")
-//                .email("andrey@mail.ru")
-//                .password("123")
-//                .role(Role.ROLE_USER)
-//                .build();
-//
-//        Mockito.when(userRepository.existsByUsername("Oly")).thenReturn(true);
-//
-//        Mockito.when(userService.create(user)).thenThrow(new RuntimeException("Пользователь с таким именем уже существует"));
-//
-//
-//
-//    }
+    @BeforeAll
+    public static void initSuite() {
+        System.out.println("Running Test");
+    }
 
-//    @Test
-//    public void shouldGenerateAuthToken() throws Exception {
-//        String token = TokenAuthenticationService.createToken("john");
-//
-//        assertNotNull(token);
-//        mvc.perform(MockMvcRequestBuilders.get("/test").header("Authorization", token)).andExpect(status().isOk());
-//    }
+    @AfterAll
+    public static void completeSuite() {
+        System.out.println("Test END");
+    }
 
+    @BeforeEach
+    public void initTest() {
+        System.out.println("Starting new Test");
+        userService = new UserService(repository);
+        user = User.builder()
+                .username(username)
+                .email(email)
+                .password(password)
+                .role(role)
+                .build();
+
+        repository.save(user);
+    }
+
+    @AfterEach
+    public void finalizeTest() {
+        System.out.println("New test complete:");
+
+        repository.deleteById(user.getId());
+    }
+
+
+    @Test
+    @DisplayName("Тест на проверку исключения при попытке сохранить пользователя " +
+            "с существующим именем или email в базу")
+    void createTestTest() {
+        assertThrows(RuntimeException.class, () -> {
+            userService.create(user);
+        });
+    }
+
+    @Test
+    @DisplayName("Тест на проверку получения пользователя по имени")
+    void getByUsernameTest() {
+        String testUserName = username;
+        User testUser = repository.findByUsername(testUserName).get();
+
+        assertEquals(testUser.getUsername(), testUserName);
+    }
+
+    @Test
+    @DisplayName("Тест на проверку исключения при отсутствии пользователя в базе")
+    void getByUsernameTestException() {
+        String testUserName = "NotUserName";
+
+        assertThrows(UsernameNotFoundException.class, () -> {
+            userService.getByUsername(testUserName);
+        });
+    }
+
+    @Test
+    void userDetailsServiceTest() {
+        String testUserName = username;
+        User testUser = repository.findByUsername(testUserName).get();
+
+        assertEquals(testUser.getUsername(), testUserName);
+    }
 }
